@@ -1,11 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>My github</title>
-    </head>
-    <body>
-        <h1>GIThub page</h1>
-    </body>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Fullstack Разработчик</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #333; }
+        .hero { background: linear-gradient(135deg, #212529 0%, #343a40 100%); color: white; padding: 100px 0; }
+        .tech-card { border: none; transition: transform 0.3s; background: white; border-radius: 12px; }
+        .tech-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .badge-tech { background-color: #e9ecef; color: #495057; font-weight: 500; margin: 2px; }
+        .stats-img { max-width: 100%; height: auto; border-radius: 8px; }
+        footer { background: #212529; color: #adb5bd; padding: 40px 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero -->
+    <header class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Привет, я [Твое Имя]</h1>
+            <p class="lead mb-4">Разрабатываю на Python, PHP и создаю современные интерфейсы</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#contact" class="btn btn-primary btn-lg px-4">Связаться</a>
+                <a href="https://github.com" class="btn btn-outline-light btn-lg px-4">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Стек технологий -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Мой стек</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="tech-card p-4 h-100">
+                        <h5>Backend</h5>
+                        <div class="d-flex flex-wrap mt-3">
+                            <span class="badge badge-tech p-2">Python (Django)</span>
+                            <span class="badge badge-tech p-2">PHP (WordPress)</span>
+                            <span class="badge badge-tech p-2">uv / Composer</span>
+                            <span class="badge badge-tech p-2">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="tech-card p-4 h-100">
+                        <h5>Frontend</h5>
+                        <div class="d-flex flex-wrap mt-3">
+                            <span class="badge badge-tech p-2">HTML5 / CSS3</span>
+                            <span class="badge badge-tech p-2">Bootstrap 5</span>
+                            <span class="badge badge-tech p-2">HTMX / Alpine.js</span>
+                            <span class="badge badge-tech p-2">Vue.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="tech-card p-4 h-100">
+                        <h5>Инструменты</h5>
+                        <div class="d-flex flex-wrap mt-3">
+                            <span class="badge badge-tech p-2">Git / GitHub</span>
+                            <span class="badge badge-tech p-2">Linux (Ubuntu)</span>
+                            <span class="badge badge-tech p-2">Docker</span>
+                            <span class="badge badge-tech p-2">Nginx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Stats -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Активность на GitHub</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 text-center">
+                    <img class="stats-img" src="https://github-readme-stats.vercel.app" alt="Stats">
+                </div>
+                <div class="col-lg-6 mb-4 text-center">
+                    <img class="stats-img" src="https://github-readme-stats.vercel.app" alt="Langs">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер и контакты -->
+    <footer id="contact" class="text-center">
+        <div class="container">
+            <p class="mb-4">Готов к новым проектам и интересным задачам.</p>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="https://t.me" class="text-white text-decoration-none">Telegram</a>
+                <a href="mailto:email@example.com" class="text-white text-decoration-none">Email</a>
+                <a href="#" class="text-white text-decoration-none">LinkedIn</a>
+            </div>
+            <small class="text-muted">&copy; 2024 [Твое Имя]. Сделано с помощью Bootstrap 5</small>
+        </div>
+    </footer>
+
+</body>
 </html>
+
