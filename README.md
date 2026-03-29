@@ -28,8 +28,8 @@
 
 ### 📊 Моя активность на GitHub
 <p align="left">
-<img height="180em" src="https://github-readme-stats.vercel.appjekaordjo&show_icons=true&theme=transparent&include_all_commits=true&count_private=true" />
-<img height="180em" src="https://github-readme-stats.vercel.appjekaordjo&layout=compact&theme=transparent&hide_border=true" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=jekaordjo&show_icons=true&theme=transparent&include_all_commits=true&count_private=true" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=jekaordjo&layout=compact&theme=transparent&hide_border=true" />
 </p>
 
 ---
