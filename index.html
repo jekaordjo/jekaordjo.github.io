@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Fullstack Разработчик</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['"DM Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        surface: {
+                            DEFAULT: '#0B0B11',
+                            100: '#13131D',
+                            200: '#1B1B28',
+                            300: '#2D2D40',
+                        },
+                        fg: {
+                            DEFAULT: '#EAEAF0',
+                            muted: '#8888A0',
+                        },
+                        accent: {
+                            DEFAULT: '#00E5A0',
+                            dim: 'rgba(0, 229, 160, 0.1)',
+                            glow: 'rgba(0, 229, 160, 0.3)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* === Базовые стили === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #0B0B11;
+            color: #EAEAF0;
+            overflow-x: hidden;
+        }
+
+        /* === Тонкая сетка на фоне === */
+        .grid-pattern {
+            background-image:
+                linear-gradient(rgba(45,45,64,0.22) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45,45,64,0.22) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+
+        /* === Градиентный текст === */
+        .gradient-text {
+            background: linear-gradient(135deg, #00E5A0 0%, #00B8D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* === Размытые свечения === */
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+        }
+
+        /* === Навигация === */
+        .nav-link {
+            color: #8888A0;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .nav-link:hover { color: #EAEAF0; }
+
+        .nav-scrolled {
+            background: rgba(11, 11, 17, 0.82) !important;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(45,45,64,0.45);
+        }
+
+        /* === Кнопки === */
+        .btn-primary-custom {
+            background: #00E5A0;
+            color: #0B0B11;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-primary-custom:hover {
+            background: #00CC8E;
+            box-shadow: 0 0 32px rgba(0, 229, 160, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: #EAEAF0;
+            font-weight: 500;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: 1px solid #2D2D40;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-outline-custom:hover {
+            border-color: #00E5A0;
+            color: #00E5A0;
+            transform: translateY(-2px);
+        }
+
+        /* === Карточки === */
+        .card-custom {
+            background: #1B1B28;
+            border: 1px solid #2D2D40;
+            border-radius: 16px;
+            transition: all 0.4s ease;
+        }
+        .card-custom:hover {
+            border-color: rgba(0, 229, 160, 0.4);
+            box-shadow: 0 8px 44px rgba(0, 229, 160, 0.07);
+            transform: translateY(-6px);
+        }
+
+        /* === Тег технологии === */
+        .tech-tag {
+            background: rgba(0, 229, 160, 0.08);
+            color: #00E5A0;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 229, 160, 0.14);
+            white-space: nowrap;
+        }
+
+        /* === Scroll-reveal анимации === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* === Scroll-индикатор === */
+        .scroll-indicator { animation: scrollBounce 2.5s ease-in-out infinite; }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(12px); opacity: 1; }
+        }
+
+        /* === Кнопка «наверх» === */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #1B1B28;
+            border: 1px solid #2D2D40;
+            color: #00E5A0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        #scrollTopBtn.visible { opacity: 1; visibility: visible; }
+        #scrollTopBtn:hover {
+            background: #00E5A0;
+            color: #0B0B11;
+            border-color: #00E5A0;
+        }
+
+        /* === Toast-уведомление === */
+        #toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1B1B28;
+            border: 1px solid rgba(0, 229, 160, 0.4);
+            color: #EAEAF0;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            z-index: 100;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            pointer-events: none;
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* === Мобильное меню === */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .mobile-menu.open { max-height: 320px; }
+
+        /* === Canvas частиц === */
+        #particleCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        /* === Focus-visible === */
+        *:focus-visible {
+            outline: 2px solid #00E5A0;
+            outline-offset: 3px;
+        }
+
+        /* === Число-статистика === */
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* === Изображение проекта === */
+        .project-img {
+            border-radius: 16px 16px 0 0;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .card-custom:hover .project-img { transform: scale(1.05); }
+
+        /* === Разделитель секции === */
+        .section-divider {
+            width: 56px;
+            height: 3px;
+            background: linear-gradient(90deg, #00E5A0, transparent);
+            border-radius: 2px;
+        }
+
+        /* === Поля формы === */
+        .form-input {
+            background: #13131D;
+            border: 1px solid #2D2D40;
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #EAEAF0;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #00E5A0;
+            box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.1);
+        }
+        .form-input::placeholder { color: #8888A0; }
+
+        /* === GitHub Stats === */
+        .gh-stats-img {
+            border-radius: 12px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* === Ссылка на проект === */
+        .project-link {
+            color: #8888A0;
+            text-decoration: none;
+            transition: color 0.25s;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .project-link:hover { color: #00E5A0; }
+
+        /* === Контактная ссылка === */
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #8888A0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-link:hover { color: #00E5A0; }
+        .contact-link .icon-wrap {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: #1B1B28;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+        .contact-link:hover .icon-wrap { background: rgba(0, 229, 160, 0.1); }
+
+        /* === prefers-reduced-motion === */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            #particleCanvas { display: none; }
+        }
+
+        /* === Адаптивная типографика === */
+        @media (max-width: 640px) {
+            .stat-number { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body class="grid-pattern">
+
+    <!-- ======================== Навигация ======================== -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" role="navigation" aria-label="Основная навигация">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Логотип -->
+            <a href="#" class="font-display text-xl font-bold text-fg no-underline" aria-label="На главную">
+                alex<span class="text-accent">.dev</span>
+            </a>
+            <!-- Десктопное меню -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#stack" class="nav-link">Стек</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#contact" class="btn-primary-custom !py-2.5 !px-5 !text-sm">Связаться</a>
+            </div>
+            <!-- Бургер -->
+            <button id="menuToggle" class="md:hidden text-fg p-2" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Мобильное меню -->
+        <div id="mobileMenu" class="mobile-menu md:hidden border-t border-surface-300" style="background:rgba(11,11,17,0.95);backdrop-filter:blur(20px);">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="#about" class="nav-link py-2">Обо мне</a>
+                <a href="#stack" class="nav-link py-2">Стек</a>
+                <a href="#projects" class="nav-link py-2">Проекты</a>
+                <a href="#contact" class="btn-primary-custom !text-sm !py-2.5 justify-center">Связаться</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ======================== Hero ======================== -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <!-- Частицы -->
+            <canvas id="particleCanvas" aria-hidden="true"></canvas>
+            <!-- Световые пятна -->
+            <div class="glow-blob w-[520px] h-[520px] bg-accent/10 top-[18%] -right-24" aria-hidden="true"></div>
+            <div class="glow-blob w-[320px] h-[320px] bg-cyan-500/5 bottom-[22%] -left-16" aria-hidden="true"></div>
+
+            <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+                <!-- Бейдж «открыт к предложениям» -->
+                <div class="inline-flex items-center mb-8 px-5 py-2.5 rounded-full border border-surface-300 text-fg-muted text-sm">
+                    <span class="inline-block w-2 h-2 rounded-full bg-accent mr-3 animate-pulse"></span>
+                    Открыт к предложениям
+                </div>
+
+                <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] mb-7">
+                    Fullstack<br><span class="gradient-text">Разработчик</span>
+                </h1>
+
+                <p class="text-fg-muted text-lg sm:text-xl max-w-xl mx-auto mb-11 leading-relaxed">
+                    Создаю серверную логику на Python и PHP, проектирую интерфейсы, которые работают быстро и выглядят современно
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#projects" class="btn-primary-custom">
+                        Смотреть проекты <i class="fas fa-arrow-down text-sm"></i>
+                    </a>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn-outline-custom">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll-индикатор -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator" aria-hidden="true">
+                <i class="fas fa-chevron-down text-fg-muted text-lg"></i>
+            </div>
+        </section>
+
+        <!-- ======================== Обо мне ======================== -->
+        <section id="about" class="py-24 sm:py-32">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Фото -->
+                    <div class="reveal">
+                        <div class="relative max-w-md mx-auto lg:mx-0">
+                            <img
+                                src="https://picsum.photos/seed/devportrait42/480/600.jpg"
+                                alt="Фото разработчика"
+                                class="rounded-2xl w-full object-cover aspect-[4/5]"
+                                loading="lazy"
+                            >
+                            <!-- Декоративная рамка -->
+                            <div class="absolute -bottom-4 -right-4 w-full h-full rounded-2xl border border-accent/20 -z-10" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <!-- Текст -->
+                    <div class="reveal reveal-delay-2">
+                        <div class="section-divider mb-6"></div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold mb-6">Обо мне</h2>
+                        <p class="text-fg-muted leading-relaxed mb-5">
+                            Привет! Я fullstack-разработчик с опытом создания веб-приложений разной сложности&nbsp;&mdash; от корпоративных сайтов на WordPress до REST&nbsp;API и дашбордов с данными в реальном времени.
+                        </p>
+                        <p class="text-fg-muted leading-relaxed mb-10">
+                            Мой фокус&nbsp;&mdash; на чистой архитектуре, быстрой разработке через правильный выбор инструментов и результатах, которые решают задачи бизнеса, а не просто существуют.
+                        </p>
+                        <!-- Цифры -->
+                        <div class="grid grid-cols-3 gap-6">
+                            <div>
+                                <div class="stat-number gradient-text">3+</div>
+                                <div class="text-fg-muted text-sm mt-1.5">лет опыта</div>
+                            </div>
+                            <div>
+                                <div class="stat-number gradient-text">20+</div>
+                                <div class="text-fg-muted text-sm mt-1.5">проектов</div>
+                            </div>
+                            <div>
+                                <div class="stat-number gradient-text">15+</div>
+                                <div class="text-fg-muted text-sm mt-1.5">технологий</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== Стек технологий ======================== -->
+        <section id="stack" class="py-24 sm:py-32" style="background:rgba(19,19,29,0.45);">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <div class="section-divider mx-auto mb-6"></div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">Технологический стек</h2>
+                    <p class="text-fg-muted max-w-lg mx-auto">Инструменты, с которыми я работаю ежедневно</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Backend -->
+                    <div class="card-custom p-6 reveal reveal-delay-1">
+                        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                            <i class="fas fa-server text-accent text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-4">Backend</h3>
+                        <ul class="space-y-2.5 text-fg-muted text-sm list-none p-0">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Python (Django)</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>PHP (WordPress)</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>FastAPI</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>REST API</li>
+                        </ul>
+                    </div>
+                    <!-- Frontend -->
+                    <div class="card-custom p-6 reveal reveal-delay-2">
+                        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                            <i class="fas fa-code text-accent text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-4">Frontend</h3>
+                        <ul class="space-y-2.5 text-fg-muted text-sm list-none p-0">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>HTML5 / CSS3</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Bootstrap 5</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>HTMX / Alpine.js</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Vue.js</li>
+                        </ul>
+                    </div>
+                    <!-- Базы данных -->
+                    <div class="card-custom p-6 reveal reveal-delay-3">
+                        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                            <i class="fas fa-database text-accent text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-4">Данные</h3>
+                        <ul class="space-y-2.5 text-fg-muted text-sm list-none p-0">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>PostgreSQL</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>MySQL</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Redis</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>SQLite</li>
+                        </ul>
+                    </div>
+                    <!-- DevOps -->
+                    <div class="card-custom p-6 reveal reveal-delay-4">
+                        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                            <i class="fas fa-cloud text-accent text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-semibold text-lg mb-4">DevOps</h3>
+                        <ul class="space-y-2.5 text-fg-muted text-sm list-none p-0">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Docker</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Nginx</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Linux (Ubuntu)</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>Git / GitHub</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== Проекты ======================== -->
+        <section id="projects" class="py-24 sm:py-32">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <div class="section-divider mx-auto mb-6"></div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">Избранные проекты</h2>
+                    <p class="text-fg-muted max-w-lg mx-auto">Несколько работ, которые отражают мой подход к разработке</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Проект 1 -->
+                    <article class="card-custom overflow-hidden reveal reveal-delay-1">
+                        <div class="overflow-hidden">
+                            <img src="https://picsum.photos/seed/ecommerce42/600/400.jpg" alt="E-commerce платформа" class="project-img" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display font-semibold text-xl mb-2">E-commerce платформа</h3>
+                            <p class="text-fg-muted text-sm mb-4 leading-relaxed">
+                                Интернет-магазин с каталогом, корзиной, интеграцией платёжной системы и панелью администратора для управления заказами.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                            <div class="flex gap-5">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Код</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt text-xs"></i> Демо</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Проект 2 -->
+                    <article class="card-custom overflow-hidden reveal reveal-delay-2">
+                        <div class="overflow-hidden">
+                            <img src="https://picsum.photos/seed/corporate77/600/400.jpg" alt="Корпоративный сайт" class="project-img" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display font-semibold text-xl mb-2">Корпоративный сайт</h3>
+                            <p class="text-fg-muted text-sm mb-4 leading-relaxed">
+                                Многостраничный сайт для строительной компании с каталогом услуг, формами обратной связи и SEO-оптимизацией.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="tech-tag">WordPress</span>
+                                <span class="tech-tag">ACF</span>
+                                <span class="tech-tag">Bootstrap</span>
+                                <span class="tech-tag">Nginx</span>
+                            </div>
+                            <div class="flex gap-5">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Код</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt text-xs"></i> Демо</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Проект 3 -->
+                    <article class="card-custom overflow-hidden reveal reveal-delay-3">
+                        <div class="overflow-hidden">
+                            <img src="https://picsum.photos/seed/dashboard99/600/400.jpg" alt="Аналитический дашборд" class="project-img" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display font-semibold text-xl mb-2">Аналитический дашборд</h3>
+                            <p class="text-fg-muted text-sm mb-4 leading-relaxed">
+                                Панель мониторинга с графиками в реальном времени, фильтрами по датам и экспортом отчётов в CSV и PDF.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">HTMX</span>
+                                <span class="tech-tag">Chart.js</span>
+                                <span class="tech-tag">Redis</span>
+                            </div>
+                            <div class="flex gap-5">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Код</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt text-xs"></i> Демо</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Проект 4 -->
+                    <article class="card-custom overflow-hidden reveal reveal-delay-4">
+                        <div class="overflow-hidden">
+                            <img src="https://picsum.photos/seed/api2024x/600/400.jpg" alt="API микросервис" class="project-img" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display font-semibold text-xl mb-2">API микросервис</h3>
+                            <p class="text-fg-muted text-sm mb-4 leading-relaxed">
+                                Микросервис для обработки пользовательских данных с JWT-аутентификацией, rate limiting и документацией Swagger.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">JWT</span>
+                            </div>
+                            <div class="flex gap-5">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Код</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt text-xs"></i> Демо</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== GitHub Stats ======================== -->
+        <section id="stats" class="py-24 sm:py-32" style="background:rgba(19,19,29,0.45);">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <div class="section-divider mx-auto mb-6"></div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">Активность на GitHub</h2>
+                    <p class="text-fg-muted max-w-lg mx-auto">Статистика и распределение по языкам программирования</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-start reveal">
+                    <!--
+                        ВАЖНО: замените USERNAME на свой реальный GitHub-никнейм.
+                        Без этого картинки покажут заглушку.
+                    -->
+                    <div class="flex justify-center">
+                        <img
+                            class="gh-stats-img"
+                            src="https://github-readme-stats.vercel.app/api?username=USERNAME&show_icons=true&theme=transparent&bg_color=1B1B28&title_color=EAEAF0&icon_color=00E5A0&text_color=8888A0&hide_border=true&border_radius=12"
+                            alt="GitHub статистика коммитов"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="flex justify-center">
+                        <img
+                            class="gh-stats-img"
+                            src="https://github-readme-stats.vercel.app/api/top-langs/?username=USERNAME&layout=compact&theme=transparent&bg_color=1B1B28&title_color=EAEAF0&icon_color=00E5A0&text_color=8888A0&hide_border=true&border_radius=12"
+                            alt="Распределение по языкам"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== Контакты ======================== -->
+        <section id="contact" class="py-24 sm:py-32">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+                    <!-- Информация -->
+                    <div class="reveal">
+                        <div class="section-divider mb-6"></div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold mb-6">Свяжитесь со мной</h2>
+                        <p class="text-fg-muted leading-relaxed mb-10">
+                            Есть интересный проект или предложение? Напишите мне&nbsp;&mdash; отвечу в течение 24&nbsp;часов.
+                        </p>
+                        <div class="space-y-5">
+                            <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="contact-link">
+                                <div class="icon-wrap"><i class="fab fa-telegram text-lg"></i></div>
+                                <div>
+                                    <div class="text-sm text-fg-muted mb-0.5">Telegram</div>
+                                    <div class="text-fg">@username</div>
+                                </div>
+                            </a>
+                            <a href="mailto:email@example.com" class="contact-link">
+                                <div class="icon-wrap"><i class="fas fa-envelope text-lg"></i></div>
+                                <div>
+                                    <div class="text-sm text-fg-muted mb-0.5">Email</div>
+                                    <div class="text-fg">email@example.com</div>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="contact-link">
+                                <div class="icon-wrap"><i class="fab fa-linkedin text-lg"></i></div>
+                                <div>
+                                    <div class="text-sm text-fg-muted mb-0.5">LinkedIn</div>
+                                    <div class="text-fg">Мой профиль</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Форма -->
+                    <div class="reveal reveal-delay-2">
+                        <form id="contactForm" class="space-y-5" novalidate>
+                            <div>
+                                <label for="nameInput" class="block text-sm text-fg-muted mb-2">Имя</label>
+                                <input type="text" id="nameInput" name="name" required class="form-input" placeholder="Как к вам обращаться">
+                            </div>
+                            <div>
+                                <label for="emailInput" class="block text-sm text-fg-muted mb-2">Email</label>
+                                <input type="email" id="emailInput" name="email" required class="form-input" placeholder="your@email.com">
+                            </div>
+                            <div>
+                                <label for="messageInput" class="block text-sm text-fg-muted mb-2">Сообщение</label>
+                                <textarea id="messageInput" name="message" rows="5" required class="form-input resize-none" placeholder="Расскажите о вашем проекте"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary-custom w-full justify-center">
+                                Отправить сообщение <i class="fas fa-paper-plane text-sm"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================== Footer ======================== -->
+    <footer class="border-t border-surface-300 py-10" role="contentinfo">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-fg-muted text-sm">
+                <span class="font-display font-semibold text-fg">alex<span class="text-accent">.dev</span></span> &mdash; 2024
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="text-fg-muted hover:text-accent transition-colors" aria-label="Telegram">
+                    <i class="fab fa-telegram text-lg"></i>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-fg-muted hover:text-accent transition-colors" aria-label="GitHub">
+                    <i class="fab fa-github text-lg"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="text-fg-muted hover:text-accent transition-colors" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка «наверх» -->
+    <button id="scrollTopBtn" aria-label="Вернуться наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast-уведомление -->
+    <div id="toast" role="alert" aria-live="polite"></div>
+
+    <script>
+    /* ==========================================================
+       Частицы на Canvas (только hero-секция)
+       ========================================================== */
+    (function () {
+        var canvas = document.getElementById('particleCanvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var mouseX = -1000, mouseY = -1000;
+        var PARTICLE_COUNT = 45;
+        var CONNECT_DIST = 140;
+        var MOUSE_RADIUS = 130;
+
+        /* Уважаем prefers-reduced-motion */
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        function resize() {
+            var hero = document.getElementById('hero');
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                r: Math.random() * 1.8 + 0.8
+            };
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (var i = 0; i < PARTICLE_COUNT; i++) particles.push(createParticle());
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            /* Линии между близкими частицами */
+            for (var i = 0; i < particles.length; i++) {
+                for (var j = i + 1; j < particles.length; j++) {
+                    var dx = particles[i].x - particles[j].x;
+                    var dy = particles[i].y - particles[j].y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECT_DIST) {
+                        var alpha = (1 - dist / CONNECT_DIST) * 0.14;
+                        ctx.strokeStyle = 'rgba(0,229,160,' + alpha + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            /* Движение и отрисовка частиц */
+            for (var k = 0; k < particles.length; k++) {
+                var p = particles[k];
+
+                /* Реакция на курсор */
+                var mdx = p.x - mouseX;
+                var mdy = p.y - mouseY;
+                var mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < MOUSE_RADIUS && mdist > 0) {
+                    var force = (MOUSE_RADIUS - mdist) / MOUSE_RADIUS * 0.02;
+                    p.vx += (mdx / mdist) * force;
+                    p.vy += (mdy / mdist) * force;
+                }
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vx *= 0.992;
+                p.vy *= 0.992;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                p.x = Math.max(0, Math.min(canvas.width, p.x));
+                p.y = Math.max(0, Math.min(canvas.height, p.y));
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, Math.max(0.5, p.r), 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0,229,160,0.35)';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        var heroEl = document.getElementById('hero');
+        heroEl.addEventListener('mousemove', function (e) {
+            var rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+        heroEl.addEventListener('mouseleave', function () {
+            mouseX = -1000; mouseY = -1000;
+        });
+        window.addEventListener('resize', resize);
+
+        init();
+        draw();
+    })();
+
+    /* ==========================================================
+       Навбар: backdrop-blur при скролле + кнопка «наверх»
+       ========================================================== */
+    (function () {
+        var navbar = document.getElementById('navbar');
+        var scrollBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', function () {
+            navbar.classList.toggle('nav-scrolled', window.scrollY > 50);
+            scrollBtn.classList.toggle('visible', window.scrollY > 500);
+        }, { passive: true });
+
+        scrollBtn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+
+    /* ==========================================================
+       Мобильное гамбургер-меню
+       ========================================================== */
+    (function () {
+        var toggle = document.getElementById('menuToggle');
+        var menu = document.getElementById('mobileMenu');
+        var icon = toggle.querySelector('i');
+        var isOpen = false;
+
+        toggle.addEventListener('click', function () {
+            isOpen = !isOpen;
+            menu.classList.toggle('open', isOpen);
+            icon.className = isOpen ? 'fas fa-times text-xl' : 'fas fa-bars text-xl';
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        /* Закрытие при клике по ссылке */
+        var links = menu.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function () {
+                isOpen = false;
+                menu.classList.remove('open');
+                icon.className = 'fas fa-bars text-xl';
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+
+    /* ==========================================================
+       Scroll-reveal через IntersectionObserver
+       ========================================================== */
+    (function () {
+        var reveals = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+            /* Fallback: показать всё сразу */
+            for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('revealed');
+            return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) entries[i].target.classList.add('revealed');
+            }
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        for (var j = 0; j < reveals.length; j++) observer.observe(reveals[j]);
+    })();
+
+    /* ==========================================================
+       Форма контактов — валидация + toast
+       ========================================================== */
+    (function () {
+        var form = document.getElementById('contactForm');
+        var toast = document.getElementById('toast');
+        var toastTimer = null;
+
+        function showToast(msg) {
+            clearTimeout(toastTimer);
+            toast.textContent = msg;
+            toast.classList.add('show');
+            toastTimer = setTimeout(function () {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var name = form.querySelector('#nameInput').value.trim();
+            var email = form.querySelector('#emailInput').value.trim();
+            var message = form.querySelector('#messageInput').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('Пожалуйста, заполните все поля');
+                return;
+            }
+            /* Простая проверка формата email */
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Введите корректный адрес email');
+                return;
+            }
+
+            /* Имитация отправки */
+            showToast('Спасибо, ' + name + '! Сообщение отправлено');
+            form.reset();
+        });
+    })();
+    </script>
+</body>
+</html>
